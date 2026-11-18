@@ -51,10 +51,10 @@ from pathlib import Path
 from xml.etree import ElementTree
 
 VERSION = "1.0.0"
-TOOL_TOKEN = "BoringSiteAudit"
+TOOL_TOKEN = "KoreanMarketingSkills"
 TOOL_UA = (
     f"Mozilla/5.0 (compatible; {TOOL_TOKEN}/{VERSION}; technical SEO audit; "
-    "+https://github.com/boringmarketer/boring-marketing-skills)"
+    "+https://github.com/beaulead-james/korean-marketing-skills)"
 )
 BROWSER_UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "

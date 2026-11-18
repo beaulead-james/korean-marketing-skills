@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/boringmarketer/boring-marketing-skills/blob/main/skills/start-here/references/schemas/brand-manifest.schema.json",
+  "$id": "https://github.com/beaulead-james/korean-marketing-skills/blob/main/skills/start-here/references/schemas/brand-manifest.schema.json",
   "title": "Brand Manifest (brand.yaml)",
   "description": "Validates the parsed contents of ./brand/brand.yaml (or ./brands/<slug>/brand.yaml): brand identity, file inventory with last-updated timestamps and owning skills, and active campaigns. Created by /start-here; every skill that writes a profile file updates its files entry in the same operation. brand_context.py uses the timestamps for freshness flags (falling back to file mtime when the manifest is absent).",
   "type": "object",

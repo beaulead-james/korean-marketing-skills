@@ -4,7 +4,7 @@
 
 만든 사람: 제임스 ([@beaulead-james](https://github.com/beaulead-james)).
 
-이 저장소는 [boringmarketer/boring-marketing-skills](https://github.com/boringmarketer/boring-marketing-skills) (James Dickerson, MIT)를 한국 시장에 맞게 다시 쓴 것입니다. 원본 저작권 고지는 [LICENSE](LICENSE)에 그대로 있습니다. 스킬 이름(폴더 id)은 원본과 같아서 워크플로 참조가 깨지지 않습니다. 판단의 기준은 한국 채널입니다.
+스킬 폴더 이름은 영어 케밥 케이스입니다. 설치와 워크플로 참조가 그 이름을 씁니다. 판단의 기준은 한국 채널입니다.
 
 ## 설치
 
@@ -104,22 +104,17 @@ Claude Code 플러그인:
 | `long-form-article` | 숫자와 출처가 있는 긴 글을 기획하고 초고를 씁니다 |
 | `content-atomizer` | 글 한 편을 채널별 게시물로 나눕니다 |
 
-## 원본에서 바꾼 것
+## 기본으로 보는 곳
 
-뺀 것: 구글 맵팩·Google Business Profile·Yelp를 기본 무대로 두던 지역 가정, 미국형 콜드메일만 있는 영업, 이메일만 있는 시퀀스, 원작자 유료 상품과 하우스 툴로의 유도.
+네이버 스마트플레이스, 블로그·카페·지식iN, 파워링크·플레이스 광고·브랜드검색, 카카오 채널·알림톡·친구톡, 카카오맵, 당근 비즈프로필, 인스타그램·스레드·유튜브 쇼츠, 네이버 Cue:와 AI 브리핑. 검색량은 네이버 키워드도구·데이터랩·자동완성부터 봅니다.
 
-더한 것: 네이버 스마트플레이스, 블로그·카페·지식iN, 파워링크·플레이스 광고·브랜드검색, 카카오 채널·알림톡·친구톡, 카카오맵, 당근 비즈프로필, 인스타그램·스레드·유튜브 쇼츠, 네이버 Cue:와 AI 브리핑, 네이버 키워드도구·데이터랩·자동완성, 정보통신망법 광고성 정보((광고), 수신거부, 야간 21시~08시), 표시광고법, 의료·대부 등 업종 심의 경고, 개인정보보호법, 원 단위, 사장님·대표님 톤.
+문안과 발송은 정보통신망법 광고성 정보((광고), 수신거부, 야간 21시~08시), 표시광고법, 개인정보보호법을 따릅니다. 의료·대부 등 업종은 심의 경고만 둡니다. 금액은 원, 말투는 사장님·대표님입니다.
 
-그대로 둔 것: 스킬 32개의 폴더 id, 설치 경로, 파이썬·노드 헬퍼, MIT 라이선스와 Boring Marketing, LLC 저작권 고지.
+구글 맵팩, Yelp, 이메일만 있는 시퀀스, 미국형 콜드메일은 기본이 아닙니다. 구글 광고와 구글 검색은 그 계정이 있을 때 다룹니다.
 
 ## 도구
 
 모든 스킬은 에이전트의 웹 검색과 사용자가 준 파일만으로 끝납니다. 키는 선택입니다. 무엇을 쓰면 어떤 단계가 쉬워지는지는 [TOOLS.md](TOOLS.md)에 있습니다. 검색량은 네이버 검색광고 키워드도구와 데이터랩을 먼저 봅니다.
-
-## 크레딧
-
-- 원본: [boringmarketer/boring-marketing-skills](https://github.com/boringmarketer/boring-marketing-skills) by James Dickerson. MIT License. Copyright (c) 2026 Boring Marketing, LLC.
-- 한국 시장 각색: 제임스 (@beaulead-james), beaulead-james/korean-marketing-skills. 버전 1.0.0.
 
 특정 고객사 이름, 내부 수치, 비밀 값은 넣지 않습니다.
 

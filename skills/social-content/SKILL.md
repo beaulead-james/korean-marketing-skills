@@ -73,7 +73,7 @@ metadata:
 
 1. **계정 목록.** 사용자가 업종에서 이기는 계정 5~10개를 이름 붙이거나, 업종을 말하면 후보를 찾습니다(그 범주의 상위 계정 검색. 살아 있고 그 업종인지 확인). 크기를 일부러 섞습니다. 팔로워 1만 미만을 둘쯤. 몸집보다 세게 나가는 작은 계정이 가장 순수한 구조 신호입니다. 큰 계정은 지위 때문에 일부 이깁니다(`references/pattern-extraction.md`의 귀속). 스크레이프 전에 목록을 확인합니다. 한국 기본 채널에서 찾습니다. 인스타, 스레드, 쇼츠, 네이버 블로그, 카카오 채널. X·링크드인은 그 브랜드가 쓸 때만.
 
-2. **계정마다 병렬 서브에이전트.** Task/Agent, `boring-marketing:research` 유형. 없을 때만 `general-purpose`. 출처 순서. X를 볼 때 `X_BEARER_TOKEN`이 있으면 X API v2(사용자 타임라인, 참여순). 아니면 `SCRAPECREATORS_API_KEY`가 있을 때 ScrapeCreators가 docs.scrapecreators.com에 문서화한 X 끝점만. 아니면 공개 프로필의 WebFetch·WebSearch(키가 있으면 Firecrawl). 못 가져오면 빈칸을 보고합니다. 합칠 때, 못 가져온 계정은 사용자에게 눈에 띄는 글 5~10개를 붙여 달라고 합니다. 인스타그램, 페이스북, 링크드인 글·프로필, x.com/i, threads.net 로그인 벽은 기본으로 WebFetch하지 않습니다. 멈추거나 로그인 페이지가 나옵니다. 네이버 블로그는 공개면 가져옵니다. 링크드인 우선 업종은 붙여 넣기를 앞에 말합니다. 제공자마다 키를 두기 싫으면 `TREG_TOKEN`이 여러 데이터 API의 키 하나입니다. 소셜 포함, 호출당 과금. 기대기 전에 카탈로그에 그 채널이 있는지 확인합니다.
+2. **계정마다 병렬 서브에이전트.** Task/Agent, `korean-marketing:research` 유형. 없을 때만 `general-purpose`. 출처 순서. X를 볼 때 `X_BEARER_TOKEN`이 있으면 X API v2(사용자 타임라인, 참여순). 아니면 `SCRAPECREATORS_API_KEY`가 있을 때 ScrapeCreators가 docs.scrapecreators.com에 문서화한 X 끝점만. 아니면 공개 프로필의 WebFetch·WebSearch(키가 있으면 Firecrawl). 못 가져오면 빈칸을 보고합니다. 합칠 때, 못 가져온 계정은 사용자에게 눈에 띄는 글 5~10개를 붙여 달라고 합니다. 인스타그램, 페이스북, 링크드인 글·프로필, x.com/i, threads.net 로그인 벽은 기본으로 WebFetch하지 않습니다. 멈추거나 로그인 페이지가 나옵니다. 네이버 블로그는 공개면 가져옵니다. 링크드인 우선 업종은 붙여 넣기를 앞에 말합니다. 제공자마다 키를 두기 싫으면 `TREG_TOKEN`이 여러 데이터 API의 키 하나입니다. 소셜 포함, 호출당 과금. 기대기 전에 카탈로그에 그 채널이 있는지 확인합니다.
 
    각 서브에이전트는 `references/pattern-extraction.md`(분류와 귀속)를 불러 **재사용 문장이 아니라 구조 설명의 증거 묶음**을 돌립니다.
 

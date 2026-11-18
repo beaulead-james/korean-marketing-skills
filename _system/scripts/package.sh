@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================================
-# package.sh - Boring Marketing Skills Packager
+# package.sh - 한국 마케팅 스킬 패키지
 # ============================================================================
 # Builds the distributable zip: plugin manifest, skills, system core,
 # automations, and customer docs. Verifies the zip's file manifest against
@@ -17,7 +17,7 @@
 #   ./package.sh --output-dir D  Custom output directory
 #
 # Output:
-#   boring-marketing-skills-3.1.0.zip (top-level dir inside: boring-marketing-skills/)
+#   korean-marketing-skills-1.0.0.zip (top-level dir inside: korean-marketing-skills/)
 # ============================================================================
 set -euo pipefail
 
@@ -26,8 +26,8 @@ set -euo pipefail
 # ---------------------------------------------------------------------------
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"          # repo root
-PACKAGE_NAME="boring-marketing-skills-$(tr -d "[:space:]" < "$REPO_ROOT/_system/VERSION")"
-STAGE_TOP="boring-marketing-skills"
+PACKAGE_NAME="korean-marketing-skills-$(tr -d "[:space:]" < "$REPO_ROOT/_system/VERSION")"
+STAGE_TOP="korean-marketing-skills"
 OUTPUT_DIR="$SCRIPT_DIR/outputs"
 
 # ---------------------------------------------------------------------------
@@ -72,7 +72,7 @@ fail()    { echo -e "  ${RED}[fail]${RESET}  $1"; }
 # Banner
 # ---------------------------------------------------------------------------
 echo ""
-echo -e "${BOLD}  Boring Marketing Skills - Packager${RESET}"
+echo -e "${BOLD}  한국 마케팅 스킬 - Packager${RESET}"
 echo -e "  ────────────────────────────────────"
 echo ""
 info "Source:  $REPO_ROOT"

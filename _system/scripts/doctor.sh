@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================================
-# doctor.sh - Boring Marketing Skills Health Check
+# doctor.sh - 한국 마케팅 스킬 상태 점검
 # ============================================================================
 # Verifies a skill suite (source tree or installed copy): system files
 # present, schemas parse, every skill's frontmatter is valid, the shared
@@ -89,7 +89,7 @@ check_exec() {
 # Banner
 # ---------------------------------------------------------------------------
 echo ""
-echo -e "${BOLD}  Boring Marketing Skills - Doctor${RESET}"
+echo -e "${BOLD}  한국 마케팅 스킬 - Doctor${RESET}"
 echo -e "  ──────────────────────────────────"
 echo ""
 echo -e "  ${DIM}Checking root:   $ROOT${RESET}"

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/boringmarketer/boring-marketing-skills/blob/main/skills/start-here/references/schemas/campaign-brief.schema.json",
+  "$id": "https://github.com/beaulead-james/korean-marketing-skills/blob/main/skills/start-here/references/schemas/campaign-brief.schema.json",
   "title": "Campaign Brief",
   "description": "Structured metadata for a marketing campaign. Each campaign directory (./campaigns/{name}/) should have a brief.md and may optionally include a brief.json validated against this schema.",
   "type": "object",
