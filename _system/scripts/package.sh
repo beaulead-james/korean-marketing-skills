@@ -133,17 +133,31 @@ RSYNC_EXCLUDES=(
 )
 
 info "Staging distribution tree..."
-rsync -a "${RSYNC_EXCLUDES[@]}" \
-  "$REPO_ROOT/.claude-plugin" \
-  "$REPO_ROOT/skills" \
-  "$REPO_ROOT/agents" \
-  "$REPO_ROOT/_system" \
-  "$REPO_ROOT/automations" \
-  "$REPO_ROOT/README.md" \
-  "$REPO_ROOT/SYSTEM-GUIDE.md" \
-  "$REPO_ROOT/TOOLS.md" \
-  "$REPO_ROOT/CHANGELOG.md" \
-  "$STAGE_DIR/"
+STAGE_SOURCES=(
+  "$REPO_ROOT/.claude-plugin"
+  "$REPO_ROOT/skills"
+  "$REPO_ROOT/agents"
+  "$REPO_ROOT/_system"
+  "$REPO_ROOT/automations"
+  "$REPO_ROOT/README.md"
+  "$REPO_ROOT/SYSTEM-GUIDE.md"
+  "$REPO_ROOT/TOOLS.md"
+  "$REPO_ROOT/CHANGELOG.md"
+)
+if command -v rsync >/dev/null 2>&1; then
+  rsync -a "${RSYNC_EXCLUDES[@]}" "${STAGE_SOURCES[@]}" "$STAGE_DIR/"
+else
+  for src in "${STAGE_SOURCES[@]}"; do
+    base="$(basename "$src")"
+    if [[ -d "$src" ]]; then
+      mkdir -p "$STAGE_DIR/$base"
+      cp -a "$src/." "$STAGE_DIR/$base/"
+    else
+      cp -a "$src" "$STAGE_DIR/"
+    fi
+  done
+  rm -rf "$STAGE_DIR/_system/scripts/outputs"
+fi
 
 # Belt-and-braces: internal docs and dev artifacts must not ship
 rm -f "$STAGE_DIR/V3-DESIGN.md"

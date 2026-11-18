@@ -7,7 +7,7 @@ pair of pages, the share of the smaller page's sentences that also appear on the
 other page.
 
 Usage:
-    python3 overlap.py pages/ --names "Garland,Mesquite,Richardson,Dallas"
+    python3 overlap.py pages/ --names "수성구,달서구,중구"
     python3 overlap.py a.md b.md c.html --threshold 0.25 --format json
 
 Options:
@@ -61,11 +61,18 @@ def to_text(raw, path):
 
 def sentences(text, names, min_words):
     for name in sorted(names, key=len, reverse=True):
-        text = re.sub(r"\b" + re.escape(name) + r"\b", "TOWN", text, flags=re.I)
-    parts = re.split(r"(?<=[.!?])\s+|\n\s*\n|\n[-*]\s", text)
+        # Hangul has no word boundary inside a phrase, and a particle sticks to the name.
+        if re.search(r"[가-힣]", name):
+            text = text.replace(name, "TOWN")
+        else:
+            text = re.sub(r"\b" + re.escape(name) + r"\b", "TOWN", text, flags=re.I)
+    parts = re.split(r"(?<=[.!?。])\s+|\n\s*\n|\n[-*]\s", text)
     out = set()
     for s in parts:
-        s = re.sub(r"[^a-z0-9 ]+", " ", s.lower())
+        # Keep Unicode letters, including Hangul. ASCII-only stripping made every
+        # Korean sentence empty, so the duplicate gate refused the pages.
+        s = re.sub(r"[^\w\s]+", " ", s.lower(), flags=re.UNICODE)
+        s = s.replace("_", " ")
         s = re.sub(r"\s+", " ", s).strip()
         if len(s.split()) >= min_words:
             out.add(s)
