@@ -1,0 +1,32 @@
+{
+  "name": "korean-marketing-skills",
+  "owner": {
+    "name": "제임스 (@beaulead-james)",
+    "url": "https://github.com/beaulead-james"
+  },
+  "plugins": [
+    {
+      "name": "korean-marketing",
+      "source": "./",
+      "description": "한국 시장용 마케팅 스킬. 네이버 플레이스와 검색광고, 카카오 채널과 알림톡, 한국어 카피, SEO, AI 검색, 메타·구글 광고, 소상공인·대행사 영업. 유료 도구 없이 동작. MIT.",
+      "version": "1.0.0",
+      "keywords": [
+        "marketing",
+        "korea",
+        "naver",
+        "kakao",
+        "copywriting",
+        "seo",
+        "ai-search",
+        "paid-ads",
+        "local-seo",
+        "소상공인",
+        "naver-place",
+        "alimtalk",
+        "meta-ads",
+        "google-ads"
+      ]
+    }
+  ],
+  "description": "한국 마케팅 스킬. 네이버·카카오·한국어 콘텐츠와 광고를 다루는 스킬 32개. MIT."
+}

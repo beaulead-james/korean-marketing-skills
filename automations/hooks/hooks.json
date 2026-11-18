@@ -1,0 +1,38 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 10,
+            "command": "python3 -c '\nimport json,sys,os\ntry:\n    d=json.load(sys.stdin)\nexcept Exception:\n    sys.exit(0)\np=(d.get(\"tool_input\") or {}).get(\"file_path\") or \"\"\ncwd=d.get(\"cwd\") or os.getcwd()\nif not p:\n    sys.exit(0)\ntry:\n    rel=os.path.relpath(p,cwd).split(os.sep)\nexcept ValueError:\n    sys.exit(0)\nif len(rel)<2 or rel[0]!=\"brands\" or rel[1]==\"active\":\n    sys.exit(0)\nact=os.path.join(cwd,\"brands\",\"active\")\nif not os.path.isfile(act):\n    sys.exit(0)\nslug=open(act,encoding=\"utf-8\").read().strip()\nif slug and rel[1]!=slug:\n    print(\"wrong client: this session is scoped to \"+slug+\"; do not switch clients unless the user asked for \"+rel[1]+\" - stop and tell the user\",file=sys.stderr)\n    sys.exit(2)\n'"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 10,
+            "command": "python3 -c '\nimport json,sys,os,re\ntry:\n    d=json.load(sys.stdin)\nexcept Exception:\n    sys.exit(0)\ncmd=(d.get(\"tool_input\") or {}).get(\"command\") or \"\"\ncwd=d.get(\"cwd\") or os.getcwd()\nact=os.path.join(cwd,\"brands\",\"active\")\nif not cmd or not os.path.isfile(act):\n    sys.exit(0)\nslug=open(act,encoding=\"utf-8\").read().strip()\nif not slug:\n    sys.exit(0)\nhits={m for m in re.findall(r\"brands/([A-Za-z0-9._-]+)/\", cmd) if m not in (\"active\", slug)}\nif hits:\n    print(\"wrong client: this session is scoped to \"+slug+\"; this command touches brands/\"+sorted(hits)[0]+\"/ - do not switch clients unless the user asked; stop and tell the user\",file=sys.stderr)\n    sys.exit(2)\n'"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "timeout": 10,
+            "command": "python3 -c '\nimport json,sys,os,datetime\ntry:\n    d=json.load(sys.stdin)\nexcept Exception:\n    sys.exit(0)\np=(d.get(\"tool_input\") or {}).get(\"file_path\") or \"\"\ncwd=d.get(\"cwd\") or os.getcwd()\nif not p:\n    sys.exit(0)\ntry:\n    rel=os.path.relpath(p,cwd)\nexcept ValueError:\n    sys.exit(0)\nif rel.split(os.sep)[0]!=\"campaigns\":\n    sys.exit(0)\nbrand=os.path.join(cwd,\"brand\")\nactive=os.path.join(cwd,\"brands\",\"active\")\nif os.path.isfile(active):\n    slug=open(active,encoding=\"utf-8\").read().strip()\n    if slug:\n        brand=os.path.join(cwd,\"brands\",slug)\nif not os.path.isdir(brand):\n    sys.exit(0)\nassets=os.path.join(brand,\"assets.md\")\nposix=\"./\"+rel.replace(os.sep,\"/\")\nprev=open(assets,encoding=\"utf-8\").read() if os.path.exists(assets) else \"\"\nif posix in prev:\n    sys.exit(0)\nwith open(assets,\"a\",encoding=\"utf-8\") as f:\n    f.write(\"- [\"+datetime.date.today().isoformat()+\"] [hook:asset-manifest] \"+posix+\"\\n\")\n'"
+          }
+        ]
+      }
+    ]
+  }
+}

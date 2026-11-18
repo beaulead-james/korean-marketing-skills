@@ -1,0 +1,27 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - name: doctor
+        run: bash _system/scripts/doctor.sh
+      - name: unit tests
+        run: python3 -m unittest discover -s tests -v
+      - name: install path
+        run: bash tests/install_path_test.sh
+      - name: banned terms
+        run: bash _system/scripts/check_banned.sh .
+      - name: freshness
+        run: python3 _system/scripts/refresh_check.py $(cat tests/ttl_files.txt)
+      - name: plugin validate
+        run: |
+          npm i -g @anthropic-ai/claude-code
+          claude plugin validate .claude-plugin/plugin.json
+          claude plugin validate .claude-plugin/marketplace.json
+          claude plugin validate skills

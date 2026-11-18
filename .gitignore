@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+_system/scripts/outputs/
+.DS_Store
+tests/results/
+internal/
+node_modules/

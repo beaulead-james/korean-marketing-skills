@@ -1,2 +1,128 @@
-# korean-marketing-skills
-한국 시장용 AI 마케팅 스킬 — 네이버·카카오·한국어 콘텐츠·광고·SEO. Adapted from boringmarketer/boring-marketing-skills (MIT).
+# 한국 마케팅 스킬
+
+네이버, 카카오, 한국어 카피와 광고, 지역 검색을 다루는 AI 마케팅 스킬 32개입니다. Claude Code, Codex, Cursor에서 같은 폴더 구조로 설치됩니다. 유료 도구 없이도 한 사이클이 끝납니다. 키가 있으면 그 단계만 더 깊게 갑니다.
+
+만든 사람: 제임스 ([@beaulead-james](https://github.com/beaulead-james)).
+
+이 저장소는 [boringmarketer/boring-marketing-skills](https://github.com/boringmarketer/boring-marketing-skills) (James Dickerson, MIT)를 한국 시장에 맞게 다시 쓴 것입니다. 원본 저작권 고지는 [LICENSE](LICENSE)에 그대로 있습니다. 스킬 이름(폴더 id)은 원본과 같아서 워크플로 참조가 깨지지 않습니다. 판단의 기준은 한국 채널입니다.
+
+## 설치
+
+Claude Code, Codex, Cursor:
+
+```bash
+npx skills add beaulead-james/korean-marketing-skills
+```
+
+Claude Code 플러그인:
+
+```
+/plugin marketplace add beaulead-james/korean-marketing-skills
+/plugin install korean-marketing@korean-marketing-skills
+```
+
+## 퀵스타트
+
+비즈니스 사이트 주소를 붙여 `/start-here`를 실행합니다.
+
+```
+/start-here https://www.example.co.kr
+```
+
+`https://www.example.co.kr` 자리에 사장님 사이트, 또는 대행사라면 고객 사이트를 넣습니다. 스킬이 사이트를 읽고 브랜드 파일을 만든 뒤, 다음에 돌릴 스킬을 고릅니다. 첫 실행은 몇 분이면 됩니다.
+
+## 스킬
+
+고객이 가게를 만나는 순서입니다.
+
+### 시작
+
+| Skill | 하는 일 |
+|---|---|
+| `start-here` | 사이트를 읽고 브랜드 파일을 만든 뒤, 다음 스킬로 보냅니다 |
+| `brand-voice` | 사이트와 리뷰에서 말투를 뽑아 이후 문장이 그 가게처럼 들리게 합니다 |
+| `positioning-angles` | 이 가게를 골라야 하는 이유와 오퍼를 정합니다 |
+| `audience-research` | 리뷰, 카페, 지식iN, 경쟁사 후기에서 고객이 실제로 쓰는 말을 모읍니다 |
+| `competitive-intel` | 검색과 플레이스에서 먼저 보이는 경쟁 가게를 읽고, 불만과 가격을 비교합니다 |
+
+### 발견
+
+| Skill | 하는 일 |
+|---|---|
+| `google-business-profile` | 네이버 스마트플레이스를 상위 가게와 비교하고, 한 달치 소식 글을 씁니다. 폴더 이름은 원본 id를 유지합니다 |
+| `local-seo-plan` | 업종과 시·군·구·동 중 어디에 페이지를 두고, 어디는 빼는지 정합니다 |
+| `service-area-pages` | 지역만 바꾼 복붙이 아닌 상권 페이지를 씁니다 |
+| `ai-search` | 네이버 Cue:, AI 브리핑, ChatGPT, Perplexity, Google AI Overview가 이 가게를 말하는지 보고 고칩니다 |
+| `site-audit` | 검색 로봇과 AI 크롤러 기준으로 사이트를 보고, 발견을 막는 기술 문제부터 고칩니다 |
+| `keyword-research` | 네이버 자동완성, 데이터랩, 검색광고 키워드도구로 주제를 나눕니다 |
+| `seo-content` | 그 검색에 답하는 블로그·가이드를 씁니다 |
+| `programmatic-seo` | 데이터 한 벌로 페이지를 많이 만들되, 얇은 페이지는 거릅니다 |
+
+### 선택
+
+| Skill | 하는 일 |
+|---|---|
+| `reviews` | 네이버 영수증 리뷰가 어디서 막히는지 보고, 답글과 요청 문장을 만듭니다 |
+| `first-screen-check` | 휴대폰 첫 화면에 하는 일, 지역, 약속, 전화·카카오가 있는지 봅니다 |
+| `landing-page` | 업종 하나, 오퍼 하나에 대한 페이지를 만듭니다 |
+| `direct-response-copy` | 문의가 나오게 헤드라인, 오퍼, 본문을 씁니다 |
+| `lead-magnet` | 번호나 이메일을 받는 체크리스트, 견적 계산, 가이드를 만듭니다 |
+
+### 문의
+
+| Skill | 하는 일 |
+|---|---|
+| `paid-ads` | 네이버 파워링크·플레이스 광고·브랜드검색, 메타, 구글 광고 문안과 테스트 계획을 씁니다 |
+| `google-ads-tracking` | 구글 광고가 전화와 폼을 실제 문의로 집계하게 만듭니다 |
+| `ads-incrementality-check` | 광고를 잠시 멈춰 전화 기록과 비교하고, 광고가 문의를 만드는지 봅니다 |
+| `meta-ads` | 메타 픽셀·전환 API를 점검하고 캠페인 실행 절차를 정리합니다 |
+| `speed-to-lead` | 놓친 전화와 늦은 답장을 찾고, 알림톡·문자 응대와 후속 연락을 설계합니다 |
+| `creative` | 광고 이미지와 짧은 영상을 만듭니다. 키 없이도 콘셉트와 카피는 나옵니다 |
+
+### 다시 오게
+
+| Skill | 하는 일 |
+|---|---|
+| `email-sequences` | 알림톡·친구톡·문자·이메일 시퀀스를 씁니다. 광고성 정보 표기 규칙을 지킵니다 |
+| `newsletter` | 사람이 열어 보는 정기 레터를 기획하고 씁니다 |
+| `performance-review` | 한 달 숫자를 읽고 유지, 중단, 테스트를 정합니다 |
+
+### 고객 찾기 (대행사·프리랜서)
+
+| Skill | 하는 일 |
+|---|---|
+| `find-local-clients` | 업종 하나와 상권 하나를 정해, 손님을 잃고 있는 소상공인을 순위로 정리합니다 |
+| `pitch-the-fix` | 사장님께 드릴 짧은 제안 하나를, 고칠 문제와 함께 씁니다 |
+
+고객이 여러 명이면 `/start-here`에 새 고객이라고 말하면 폴더를 나눕니다.
+
+### 직접 알리기
+
+| Skill | 하는 일 |
+|---|---|
+| `social-content` | 인스타그램, 스레드, 쇼츠, 블로그에 올릴 글을 그 계정의 말투로 씁니다 |
+| `long-form-article` | 숫자와 출처가 있는 긴 글을 기획하고 초고를 씁니다 |
+| `content-atomizer` | 글 한 편을 채널별 게시물로 나눕니다 |
+
+## 원본에서 바꾼 것
+
+뺀 것: 구글 맵팩·Google Business Profile·Yelp를 기본 무대로 두던 지역 가정, 미국형 콜드메일만 있는 영업, 이메일만 있는 시퀀스, 원작자 유료 상품과 하우스 툴로의 유도.
+
+더한 것: 네이버 스마트플레이스, 블로그·카페·지식iN, 파워링크·플레이스 광고·브랜드검색, 카카오 채널·알림톡·친구톡, 카카오맵, 당근 비즈프로필, 인스타그램·스레드·유튜브 쇼츠, 네이버 Cue:와 AI 브리핑, 네이버 키워드도구·데이터랩·자동완성, 정보통신망법 광고성 정보((광고), 수신거부, 야간 21시~08시), 표시광고법, 의료·대부 등 업종 심의 경고, 개인정보보호법, 원 단위, 사장님·대표님 톤.
+
+그대로 둔 것: 스킬 32개의 폴더 id, 설치 경로, 파이썬·노드 헬퍼, MIT 라이선스와 Boring Marketing, LLC 저작권 고지.
+
+## 도구
+
+모든 스킬은 에이전트의 웹 검색과 사용자가 준 파일만으로 끝납니다. 키는 선택입니다. 무엇을 쓰면 어떤 단계가 쉬워지는지는 [TOOLS.md](TOOLS.md)에 있습니다. 검색량은 네이버 검색광고 키워드도구와 데이터랩을 먼저 봅니다.
+
+## 크레딧
+
+- 원본: [boringmarketer/boring-marketing-skills](https://github.com/boringmarketer/boring-marketing-skills) by James Dickerson. MIT License. Copyright (c) 2026 Boring Marketing, LLC.
+- 한국 시장 각색: 제임스 (@beaulead-james), beaulead-james/korean-marketing-skills. 버전 1.0.0.
+
+특정 고객사 이름, 내부 수치, 비밀 값은 넣지 않습니다.
+
+## 라이선스
+
+MIT. 본인 사업, 고객 일, 제품에 쓸 수 있습니다. 사본과 수정본에는 [LICENSE](LICENSE)의 저작권 고지와 허가 고지를 남기세요.

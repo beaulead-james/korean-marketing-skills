@@ -1,0 +1,12 @@
+# Sample robots.txt for the site-audit tests
+User-agent: *
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /private/
+
+Sitemap: {{BASE}}/sitemap.xml
