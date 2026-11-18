@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/boringmarketer/boring-marketing-skills/blob/main/skills/start-here/references/schemas/ad-matrix.schema.json",
+  "$id": "https://github.com/beaulead-james/korean-marketing-skills/blob/main/skills/start-here/references/schemas/ad-matrix.schema.json",
   "title": "Ad Testing Matrix (v3 shared contract)",
   "description": "THE shared ad-matrix contract (the contract every ads skill shares). /positioning-angles WRITES ./campaigns/<name>/ad-matrix.{md,json}; /creative and /paid-ads READ it and name assets by cell ID (e.g. MA-H2-B-9x16-v1.mp4); /performance-review maps results back to cells. 4 hooks (H1-H4, taxonomy: direct/question/proof/contrarian) x 3 formats (A=static, B=video, C=carousel) = 12 cells with IDs MA-H{1-4}-{A-C}.",
   "type": "object",

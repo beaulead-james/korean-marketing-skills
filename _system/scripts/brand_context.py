@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-brand_context.py: brand-memory loader for Boring Marketing Skills.
+brand_context.py: brand-memory loader for Korean Marketing Skills.
 
 Reads the calling skill's frontmatter `metadata.boring.reads` list, resolves the
 active brand directory, and emits ONE markdown context block to stdout with

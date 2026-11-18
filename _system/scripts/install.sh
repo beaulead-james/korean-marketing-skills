@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # ============================================================================
-# install.sh - Boring Marketing Skills Installer
+# install.sh - 한국 마케팅 스킬 설치
 # ============================================================================
-# Installs the Boring Marketing skill suite into Claude Code's skill directory.
+# Installs the Korean marketing skill suite into Claude Code's skill directory.
 # Skills are discovered dynamically from <repo>/skills/*/SKILL.md — no
 # hardcoded roster.
 #
@@ -101,7 +101,7 @@ is_replicate_skill() {
 # Banner
 # ---------------------------------------------------------------------------
 echo ""
-echo -e "${BOLD}  Boring Marketing Skills v${VERSION} Installer${RESET}"
+echo -e "${BOLD}  한국 마케팅 스킬 v${VERSION} Installer${RESET}"
 echo -e "  ────────────────────────────────────"
 echo ""
 info "Source:  $REPO_ROOT"

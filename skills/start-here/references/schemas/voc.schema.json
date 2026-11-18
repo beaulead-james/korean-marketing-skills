@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/boringmarketer/boring-marketing-skills/blob/main/skills/start-here/references/schemas/voc.schema.json",
+  "$id": "https://github.com/beaulead-james/korean-marketing-skills/blob/main/skills/start-here/references/schemas/voc.schema.json",
   "title": "Voice of Customer",
   "description": "Verbatim customer language bank, written by /audience-research to ./brand/voc.md (this schema validates the optional structured mirror). Quoted (never paraphrased) by /direct-response-copy, /positioning-angles, /lead-magnet, and /email-sequences. Every entry carries the verbatim quote, a source URL, and a date. No invented quotes: an empty array beats a fabricated entry.",
   "type": "object",

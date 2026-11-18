@@ -11,7 +11,7 @@
 
 ## 단계
 
-병렬은 Task 에이전트입니다. 유형은 `boring-marketing:research`. 파일과 웹만, 커넥터 없음. 그 유형이 없으면 `general-purpose`. 벽시계는 가장 느린 갈래입니다.
+병렬은 Task 에이전트입니다. 유형은 `korean-marketing:research`. 파일과 웹만, 커넥터 없음. 그 유형이 없으면 `general-purpose`. 벽시계는 가장 느린 갈래입니다.
 
 1. 병렬. **/landing-page 해부**를 홈과, 목표가 가리키는 페이지 하나에. leads면 받는 페이지. convert면 가격이나 제안 페이지. traffic이나 authority면 식별할 수 있는 가장 좋은 콘텐츠 페이지. launch면 상품 페이지. 지역이면 광고나 플레이스가 여는 페이지를, 휴대폰 화면으로 /first-screen-check 방법 (첫 화면의 번호, 약속, 증거, 하는 일, 지역, 카카오). unsure면 홈만. 각 해부는 절별 점수, 7차원 문안 점수, 레버리지 순의 다시 쓰기 계획을 돌려줍니다. 그 점수는 작업 데이터입니다. 수집 날짜와 함께 노트에 있고, 보고에는 없습니다.
 2. 병렬. **/ai-search 감사, 압축.** 1단계에서 3단계만 (돈이 되는 쿼리 약 10개. 4단계 승자 진단은 건너뜀). 감사는 `keyword-plan.md`나 `positioning.md`에서 모드가 하는 대로 쿼리 목록을 만듭니다. 제안은 사이트 자신의 헤드라인과 범주에서 도출합니다. 경쟁 집합은 3단계에서 오므로, 모드의 경쟁 질문은 하지 않습니다. 쿼리마다 CITED / MENTIONED / ABSENT와 인용된 도메인. 한국 쿼리는 네이버 Cue:, 네이버 AI 브리핑, ChatGPT, Perplexity, Google AI Overview. 영어 웹의 인용 비율은 적지 않습니다.
