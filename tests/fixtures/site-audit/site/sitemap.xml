@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{{BASE}}/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>{{BASE}}/services/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>{{BASE}}/services/drain-cleaning/</loc></url>
+  <url><loc>{{BASE}}/blog/water-heater-cost/</loc><lastmod>2026-09-15</lastmod></url>
+  <url><loc>{{BASE}}/old-offer/</loc></url>
+  <url><loc>{{BASE}}/gone/</loc></url>
+</urlset>

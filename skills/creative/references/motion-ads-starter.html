@@ -1,0 +1,140 @@
+<!doctype html>
+<!--
+  영상 광고 스타터. 1080x1920. 릴스, 틱톡, 쇼츠용 마스터 하나. 16초.
+  실제 영상이나 만든 영상을 이어 붙입니다. 0프레임부터 화면에 있는 후크 자막,
+  단어마다 켜지는 본문 자막, 실제 후기 카드가 올라간 증거 컷, 제품이 찍힌 실제 사진 위 끝 카드.
+  글자는 빈 그라데이션 위에 두지 않습니다.
+  HyperFrames 프로젝트의 index.html로 복사한 뒤 (modes/motion-ads.md).
+  1. 클립은 assets/clips/ 에 둡니다 (1080x1920, 30fps, H.264). 사용 중인 제품의 실제 9:16 사진은 assets/end.jpg.
+     글꼴은 assets/fonts/ 에 두고 @font-face 경로를 맞춥니다.
+  2. 대괄호 문장을 전부 바꿉니다. 자막은 hyperframes transcribe 단어 시각에서 옵니다.
+     2~4단어씩, 그 단어들이 말하는 동안 유지하고, 아래 스크립트의 wordStarts가 말하는 순간 단어를 켭니다.
+     시간은 절대 초입니다.
+  3. 후크 변형은 오프닝마다 한 번씩 렌더합니다. 변수 JSON의 hookClip, hookText.
+     예. assets/clips/hook-b.mp4 와 [두 번째 첫 문장]
+  4. 글자는 x 120~888, y 288~1248 안, y 840 아래에서는 x 780보다 왼쪽.
+  일부러 유지하는 패턴. 시간이 있는 요소는 전부 최상위 .clip 과 절대 시간.
+  타임라인 밖 gsap.set 의 숨은 시작 상태. 요소당 트윈 하나.
+  말이 있는 video 에만 소리를 두고, 비롤은 muted.
+-->
+<html lang="ko" data-composition-variables='[
+  {"id":"hookClip","type":"string","label":"후크 클립","default":"assets/clips/hook-a.mp4"},
+  {"id":"hookText","type":"string","label":"후크 문구","default":"[버리려던 참이었어요]"}
+]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Brand Display"; src: url("assets/fonts/display-900.woff2") format("woff2"); font-weight: 900; font-style: normal; }
+      @font-face { font-family: "Brand Text"; src: url("assets/fonts/text-500.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+      @font-face { font-family: "Brand Text"; src: url("assets/fonts/text-700.woff2") format("woff2"); font-weight: 700; font-style: normal; }
+
+      :root { --ink: #111111; --paper: #ffffff; --accent: #f2c230; --brand: #1d3a2e; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      video.clip { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+
+      /* 후크. 0프레임부터 이미 화면에 있는 자막 상자. */
+      #hook-box { position: absolute; left: 120px; top: 300px; width: 768px; text-align: center; }
+      #hook-text { display: inline; padding: 10px 18px; line-height: 1.5; border-radius: 14px;
+        background: var(--paper); color: var(--ink); font-family: "Brand Text", sans-serif; font-weight: 700; font-size: 58px;
+        -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+
+      /* 자막. 어두운 상자 위 2~4단어. 말하는 순간 단어가 켜집니다. */
+      .cap { position: absolute; left: 120px; top: 1040px; width: 660px; text-align: center; }
+      .cap span.box { display: inline; padding: 6px 14px; line-height: 1.45; border-radius: 12px; background: rgba(0, 0, 0, 0.72);
+        font-family: "Brand Text", sans-serif; font-weight: 700; font-size: 64px; color: #ffffff;
+        -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+      .cap .w { color: #ffffff; }
+
+      /* 증거 영상 위 후기 카드. 실제 문장, 실제 이름, 실제 출처만. */
+      #review { position: absolute; left: 120px; top: 760px; width: 660px; padding: 40px 44px 36px; border-radius: 28px;
+        background: rgba(255, 255, 255, 0.96); box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35); }
+      .stars { font-family: "Brand Text", sans-serif; font-weight: 700; font-size: 44px; letter-spacing: 6px; color: #a86f00; }
+      .quote { margin-top: 14px; font-family: "Brand Text", sans-serif; font-weight: 700; font-size: 50px; line-height: 1.2; color: var(--ink); }
+      .quote mark { background: none; color: inherit; box-shadow: inset 0 -16px 0 var(--accent); }
+      .attr { margin-top: 22px; font-family: "Brand Text", sans-serif; font-weight: 500; font-size: 32px; color: #444; }
+
+      /* 끝 카드. 사용 중인 제품 사진이 화면을 채우고, 글자는 안전 영역 안. */
+      #end { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #end-photo { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #end-shade { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 38%, rgba(0, 0, 0, 0.72) 58%, rgba(0, 0, 0, 0.82) 100%); }
+      #end-offer { position: absolute; left: 120px; top: 900px; width: 660px; font-family: "Brand Display", serif; font-weight: 900;
+        font-size: 84px; line-height: 1.05; color: var(--paper); }
+      #end-terms { position: absolute; left: 120px; top: 1100px; width: 660px; font-family: "Brand Text", sans-serif; font-weight: 500;
+        font-size: 36px; color: var(--paper); opacity: 0.9; }
+      #end-cta { position: absolute; left: 120px; top: 1150px; width: 560px; height: 96px; border-radius: 48px; background: var(--accent);
+        display: flex; align-items: center; justify-content: center; font-family: "Brand Text", sans-serif; font-weight: 700; font-size: 42px; color: var(--ink); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="16" data-width="1080" data-height="1920">
+      <!-- 1. 후크 클립. 첫 프레임부터 얼굴이나 손과 제품. 소리 유지. -->
+      <video id="v-hook" class="clip" src="assets/clips/hook-a.mp4" data-start="0" data-duration="3.2" data-media-start="0" data-has-audio="true" playsinline></video>
+      <!-- 2. 본문. 쓰는 장면. 소리 유지. data-media-start 로 자릅니다. -->
+      <video id="v-body" class="clip" src="assets/clips/body.mp4" data-start="3.2" data-duration="6.8" data-media-start="0" data-has-audio="true" playsinline></video>
+      <!-- 3. 증거. 결과 영상. 후기 카드 아래의 무음 비롤. -->
+      <video id="v-proof" class="clip" src="assets/clips/result.mp4" data-start="10" data-duration="3.5" data-media-start="0" muted playsinline></video>
+
+      <div id="hook-box" class="clip" data-start="0" data-duration="3.2"><span id="hook-text">[버리려던 참이었어요]</span></div>
+      <!-- 댓글 답장으로 열 때. 후크 상자를 말풍선으로 바꿉니다.
+           작은 글자 " [이름]님 댓글에 답장" 과 댓글 원문.
+           댓글 작성자 이름은 동의가 없으면 가립니다. -->
+
+      <!-- 자막. 녹취의 단어와 시각으로 바꿉니다. 덩어리는 그 단어들이 말하는 동안
+           (최소 약 1.1초) 남아 있고, 아래 스크립트에서 단어마다 자기 시작 시각에 켜집니다. -->
+      <div id="cap-1" class="clip cap" data-start="3.25" data-duration="1.55"><span class="box"><span id="w1" class="w">[막</span> <span id="w2" class="w">버리려던</span> <span id="w3" class="w">참</span> <span id="w4" class="w">이었어요]</span></span></div>
+      <div id="cap-2" class="clip cap" data-start="4.8" data-duration="1.6"><span class="box"><span id="w5" class="w">[십</span> <span id="w6" class="w">초면</span> <span id="w7" class="w">끝이</span> <span id="w8" class="w">나요]</span></span></div>
+      <div id="cap-3" class="clip cap" data-start="6.4" data-duration="3.5"><span class="box"><span id="w9" class="w">[그런데</span> <span id="w10" class="w">진짜</span> <span id="w11" class="w">쓸</span> <span id="w12" class="w">만해요]</span></span></div>
+
+      <div id="review-wrap" class="clip" data-start="10.1" data-duration="3.4">
+        <div id="review">
+          <!-- 후기는 원문만. 별은 그 후기에 별이 있을 때만. -->
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="quote">"[기사님이] <mark>[당일에]</mark> [와 주셨어요.]"</div>
+          <div class="attr">[이름] &middot; [네이버 영수증 리뷰]</div>
+        </div>
+      </div>
+
+      <section id="end" class="clip" data-start="13.5" data-duration="2.5">
+        <!-- 사용 중인 제품의 실제 사진, 9:16. 단색 위 패키지 컷이 아닙니다. -->
+        <img id="end-photo" src="assets/end.jpg" alt="" data-layout-ignore />
+        <div id="end-shade" data-layout-ignore></div>
+        <div id="end-offer">[오늘 출장, 견적부터]</div>
+        <div id="end-terms">[출장비는 별도입니다]</div>
+        <div id="end-cta">[전화하기]</div>
+      </section>
+    </div>
+
+    <script>
+      // 후크 변형. 타임라인을 만들기 전에 변수로 클립과 문장을 바꿉니다.
+      const vars = (window.__hyperframes && window.__hyperframes.getVariables && window.__hyperframes.getVariables()) || {};
+      if (vars.hookClip) document.getElementById("v-hook").setAttribute("src", vars.hookClip);
+      if (vars.hookText) document.getElementById("hook-text").textContent = vars.hookText;
+
+      window.__timelines = window.__timelines || {};
+      gsap.set("#review", { opacity: 0, y: 80 });
+      gsap.set("#end-photo", { scale: 1.04 });
+      gsap.set(["#end-offer", "#end-terms"], { opacity: 0, y: 30 });
+      gsap.set("#end-cta", { opacity: 0, y: 40 });
+
+      const tl = gsap.timeline({ paused: true });
+      // 말한 단어가 켜집니다. 단어당 트윈 하나. 시각은 녹취의 시작.
+      const wordStarts = [3.25, 3.6, 3.9, 4.35, 4.8, 5.3, 5.8, 6.4, 7.1, 7.7, 8.1, 8.6];
+      wordStarts.forEach((t, i) => tl.to("#w" + (i + 1), { color: "#f2c230", duration: 0.08, ease: "none" }, t));
+      // 후기 카드가 영상 위로 올라와 읽을 시간만큼 유지됩니다.
+      tl.to("#review", { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 10.15);
+      // 끝 카드. 제품 사진이 앉고, 혜택, 조건, 버튼. 2초 넘게 유지.
+      tl.to("#end-photo", { scale: 1, duration: 2.5, ease: "power1.out" }, 13.5);
+      tl.to("#end-offer", { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 13.55);
+      tl.to("#end-terms", { opacity: 0.9, y: 0, duration: 0.3, ease: "power2.out" }, 13.65);
+      tl.to("#end-cta", { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 13.7);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
